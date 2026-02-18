@@ -638,60 +638,38 @@
     // ============================================================
     //  DEVTOOLS BLOCKER
     // ============================================================
-    // (function() {
-    //   // Block right-click
-    //   document.addEventListener('contextmenu', function(e) {
-    //     e.preventDefault();
-    //     return false;
-    //   });
+    (function() {
+       // 1. Chặn chuột phải (Để không chọn được "Kiểm tra")
+       document.addEventListener('contextmenu', function(e) {
+         e.preventDefault();
+         return false;
+       });
 
-    //   // Block keyboard shortcuts
-    //   document.addEventListener('keydown', function(e) {
-    //     // F12
-    //     if (e.key === 'F12') { e.preventDefault(); return false; }
-    //     // Ctrl+Shift+I
-    //     if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) { e.preventDefault(); return false; }
-    //     // Ctrl+Shift+J
-    //     if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j')) { e.preventDefault(); return false; }
-    //     // Ctrl+Shift+C
-    //     if (e.ctrlKey && e.shiftKey && (e.key === 'C' || e.key === 'c')) { e.preventDefault(); return false; }
-    //     // Ctrl+U (view source)
-    //     if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) { e.preventDefault(); return false; }
-    //     // Ctrl+S (save)
-    //     if (e.ctrlKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); return false; }
-    //     // Ctrl+Shift+K (Firefox console)
-    //     if (e.ctrlKey && e.shiftKey && (e.key === 'K' || e.key === 'k')) { e.preventDefault(); return false; }
-    //     // Cmd+Option+I (Mac)
-    //     if (e.metaKey && e.altKey && (e.key === 'i' || e.key === 'I')) { e.preventDefault(); return false; }
-    //     // Cmd+Option+J (Mac)
-    //     if (e.metaKey && e.altKey && (e.key === 'j' || e.key === 'J')) { e.preventDefault(); return false; }
-    //     // Cmd+Option+U (Mac)
-    //     if (e.metaKey && e.altKey && (e.key === 'u' || e.key === 'U')) { e.preventDefault(); return false; }
-    //   });
+       // 2. Chặn các phím tắt mở Console (F12, Ctrl+Shift+I, v.v.)
+       document.addEventListener('keydown', function(e) {
+         // F12
+         if (e.key === 'F12') { e.preventDefault(); return false; }
+         // Ctrl+Shift+I, J, C
+         if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) { 
+           e.preventDefault(); return false; 
+         }
+         // Ctrl+U (Xem nguồn trang)
+         if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) { e.preventDefault(); return false; }
+         // Ctrl+S (Lưu trang)
+         if (e.ctrlKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); return false; }
+         // Phím tắt cho Mac (Cmd+Opt+I/J/U)
+         if (e.metaKey && e.altKey && (e.key === 'i' || e.key === 'I' || e.key === 'j' || e.key === 'J' || e.key === 'u' || e.key === 'U')) { 
+           e.preventDefault(); return false; 
+         }
+       });
 
-    //   // Detect devtools via window size
-    //   function showWarning() {
-    //     document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#1a0505;color:#dc2626;font-family:sans-serif;text-align:center;padding:20px;"><div><h1 style="font-size:2rem;margin-bottom:1rem;">Khoan da!!!</h1><p style="font-size:1.2rem;color:#f59e0b;">Dong Developer Tools lai de choi game nha!</p><p style="font-size:1rem;color:#fbbf24;margin-top:0.5rem;">Minh biet het do, dung co gian lan nha :))</p></div></div>';
-    //   }
-
-    //   setInterval(function() {
-    //     var widthDiff = window.outerWidth - window.innerWidth > 160;
-    //     var heightDiff = window.outerHeight - window.innerHeight > 160;
-    //     if (widthDiff || heightDiff) {
-    //       showWarning();
-    //     }
-    //   }, 1000);
-
-    //   // Block drag
-    //   document.addEventListener('dragstart', function(e) { e.preventDefault(); });
-
-    //   // Block text selection (except inputs)
-    //   document.addEventListener('selectstart', function(e) {
-    //     if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-    //       e.preventDefault();
-    //     }
-    //   });
-    // })();
+       // 3. Chặn bôi đen văn bản (Để không copy được câu hỏi đi search)
+       document.addEventListener('selectstart', function(e) {
+         if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+           e.preventDefault();
+         }
+       });
+    })();
 
     // ============================================================
     //  FIREWORKS (Canvas)
