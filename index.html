@@ -1173,17 +1173,17 @@
       });
       // Hiệu ứng âm thanh khi ấn vào màn hình
       document.addEventListener('mousedown', function() {
-        const sndClick = new Audio("./nhom.mp3");
+        const sndClick = new Audio("./nhom.mp3"); // Dùng ./ để chỉ rõ thư mục hiện tại
         sndClick.volume = 1;
         sndClick.play().catch(function(e) {});
       });
 
-      // 2. Danh sách nhạc troll
+      // 2. Danh sách nhạc troll - Viết rõ ràng để trình soạn thảo nhận diện file
       const surpriseSounds = [
-        "./meme1_00000030.mp3",
-        "./meme1_00000158.mp3",
-        "./meme1_00000275.mp3",
-        "./meme1_00000343.mp3"
+        "./meme1.mp3",
+        "./meme2.mp3",
+        "./meme3.mp3",
+        "./meme4.mp3"
       ];
 
       function playSurpriseSound() {
@@ -1202,6 +1202,7 @@
           console.log("Phát nhạc lỗi: ", e);
         });
 
+        // Thiết lập lần phát tiếp theo ngẫu nhiên từ 15 đến 40 giây
         const nextTime = Math.floor(Math.random() * (40000 - 15000 + 1)) + 15000;
         setTimeout(playSurpriseSound, nextTime);
       }
