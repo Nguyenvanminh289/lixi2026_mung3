@@ -1072,6 +1072,17 @@
 
       // --- Show result ---
       function showResult(guessedName) {
+        var scriptURL = 'https://script.google.com/macros/s/AKfycbwhGRterqSj0e34gL2Gx4Jq1dKQ13QeS0dwh9XV-nlch53wFaclgz6R70J5FRm-5eKD/exec';
+        fetch(scriptURL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            playerName: playerName,
+            score: getTotalScore(),
+            guessedName: guessedName
+          })
+        });
         showPhase('result');
 
         // /* === SOUND: Am thanh ket qua === */
