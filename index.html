@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#7f1d1d" />
-  <title>Minh's Crush Hunt - Mung 3</title>
+  <title>Minh's Crush Hunt - Mùng 3</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -393,7 +393,7 @@
       font-size: 2.5rem;
       font-weight: 700;
       color: var(--tet-gold);
-    }
+    }  
     @media (min-width: 768px) { .score-number { font-size: 3.2rem; } }
 
     .score-label {
@@ -481,9 +481,13 @@
   
 
   <!-- === SOUND: Nhac nen Tet === -->
-  <!-- <audio id="bg-music" autoplay loop>
-    <source src="sounds/background-music.mp3" type="audio/mpeg" />
-  </audio> -->
+  <audio id="bg-music" autoplay loop>
+    <source src="bg.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script>
+    document.getElementById('bg-music').volume = 0.2; 
+  </script>
 
   <!-- Fireworks Canvas -->
   <canvas id="fireworks-canvas" aria-hidden="true"></canvas>
@@ -505,14 +509,14 @@
     <!-- Header -->
     <header class="header">
       <!-- === HINH AVT CUA MINH: Thay bang the img ben duoi === -->
-      <!-- <div style="margin-bottom:1rem;">
+      <div style="margin-bottom:1rem;">
         <img 
-          src="images/avatar.jpg" 
+          src="minh.jpg" 
           alt="Avatar cua Minh"
           style="width:80px;height:80px;border-radius:50%;border:4px solid #f59e0b;margin:0 auto;display:block;object-fit:cover;box-shadow:0 0 30px rgba(245,158,11,0.4);"
         />
-      </div> -->
-      <div class="avatar-placeholder">&#129511;</div>
+      </div>
+      <!-- <div class="avatar-placeholder">&#129511;</div> -->
       <h1 class="title animate-title-glow">Minh's Crush Hunt</h1>
       <p class="subtitle">Lì Xì 2026 - Mùng 3 &#129511;</p>
     </header>
@@ -576,7 +580,7 @@
 
         <!-- Total score -->
         <div class="score-display">
-          <span id="total-score-display">Tổng điểm: 0/70</span>
+          <!-- <span id="total-score-display">Tổng điểm: 0/70</span> -->
         </div>
 
         <!-- Question card -->
@@ -609,14 +613,14 @@
           <div class="separator"></div>
 
           <div class="mb-6">
-            <p class="guess-label">Dự đoán của : <span id="result-player-name-2"></span>:</p>
+            <p class="guess-label">Dự đoán của <span id="result-player-name-2"></span>:</p>
             <p class="guess-name" id="result-guess-name"></p>
           </div>
 
           <div class="separator"></div>
 
           <div class="cta-box">
-            <p style="animation: lantern-pulse 2s ease-in-out infinite;">Ý là cap màn hình lại gửi t </p>
+            <p style="animation: lantern-pulse 2s ease-in-out infinite;"> Ý là không cần cap màn hình lại nữa đâu :)</p>
           </div>
           <p style="font-size:0.875rem;color:rgba(251,191,36,0.4);">Minh's Crush Hunt - Tet 2026</p>
         </div>
@@ -626,7 +630,7 @@
 
     <!-- Footer -->
     <footer class="footer">
-      <p>Made with &#10084;&#65039; by Minh - Tet 2026</p>
+      <p>Ý là &#10084;&#65039; Minh - Tết 2026</p>
     </footer>
   </div>
 
@@ -891,7 +895,7 @@
           options: ['10.1', '10.2', '10.3', '10.4', '10.5', '10.6'],
           maxScore: 10,
           scoringType: 'partial',
-          partialScores: { '10.3': 10, '10.2': 6, '10.4': 6, '10.1': 3, '10.5': 3, '10.6': 1 }
+          partialScores: { '10.3': 10, '10.2': 6, '10.4': 6, '10.1': 3, '10.5': 0, '10.6': 1 }
         },
         {
           id: 8,
@@ -983,7 +987,7 @@
         qCounter.textContent = ' Ai hỏi ' + (currentQ + 1) + '/' + total;
         qPlayerName.textContent = playerName;
         progressFill.style.width = progress + '%';
-        totalScoreDisplay.textContent = 'Điểm : ' + getTotalScore() + '/70';
+        // totalScoreDisplay.textContent = 'Điểm : ' + getTotalScore() + '/70';
         questionText.textContent = q.question;
 
         selectedOption = null;
@@ -1041,10 +1045,6 @@
         var answer = q.type === 'choice' ? (selectedOption || '') : answerInput.value.trim();
         if (!answer) return;
 
-        // /* === SOUND: Click sound === */
-        var clickSound = new Audio('nhom.mp3');
-        clickSound.play().catch(function(){});
-
         var score = calculateScore(q, answer);
         scores[currentQ] = score;
         isTransitioning = true;
@@ -1056,7 +1056,7 @@
         btnSubmitAnswer.style.display = 'none';
 
         // Update total score display immediately
-        totalScoreDisplay.textContent = 'Điểm : ' + getTotalScore() + '/70';
+        // totalScoreDisplay.textContent = 'Điểm : ' + getTotalScore() + '/70';
 
         // Auto advance after a short pause (no score popup shown)
         setTimeout(function() {
@@ -1171,8 +1171,43 @@
           submitAnswer();
         }
       });
+      // Hiệu ứng âm thanh khi ấn vào màn hình
+      document.addEventListener('mousedown', function() {
+        const sndClick = new Audio("./nhom.mp3");
+        sndClick.volume = 1;
+        sndClick.play().catch(function(e) {});
+      });
 
-    })();
+      // 2. Danh sách nhạc troll
+      const surpriseSounds = [
+        "./meme1_00000030.mp3",
+        "./meme1_00000158.mp3",
+        "./meme1_00000275.mp3",
+        "./meme1_00000343.mp3"
+      ];
+
+      function playSurpriseSound() {
+        if (!playerName || playerName === "") {
+          setTimeout(playSurpriseSound, 2000);
+          return;
+        }
+
+        const randomFile = surpriseSounds[Math.floor(Math.random() * surpriseSounds.length)];
+        const audio = new Audio(randomFile);
+        audio.volume = 1;
+        
+        console.log("Đang phát nhạc bất ngờ: " + randomFile);
+        
+        audio.play().catch(function(e) {
+          console.log("Phát nhạc lỗi: ", e);
+        });
+
+        const nextTime = Math.floor(Math.random() * (40000 - 15000 + 1)) + 15000;
+        setTimeout(playSurpriseSound, nextTime);
+      }
+      setTimeout(playSurpriseSound, 10000);
+
+    })(); 
   </script>
 </body>
 </html>
